@@ -12,4 +12,8 @@ public class PlayerManager implements PlayerGetter {
     players = PlayerProvider.getInstance().getPlayers();
     return players;
   }
+
+  public int addPlayer() {
+    return PlayerProvider.getInstance().addPlayer(null);
+  }
 }

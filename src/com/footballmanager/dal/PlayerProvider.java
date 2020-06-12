@@ -2,6 +2,7 @@ package com.footballmanager.dal;
 
 import com.footballmanager.dto.Player;
 
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +40,10 @@ public class PlayerProvider {
     catch (Exception e) {
       return null;
     }
+  }
+
+  public int addPlayer(Player player) {
+    var command = "INSERT INTO Player VALUES (990, 'A', 'England', 'RIGHT', 9, 1)";
+    return DataProvider.getInstance().executeNonQuery(command);
   }
 }

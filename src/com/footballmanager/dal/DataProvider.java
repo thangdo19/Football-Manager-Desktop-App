@@ -18,9 +18,8 @@ public class DataProvider {
 
   public void closeConnection() {
     try {
-      System.out.println("Connection: " + connection.isClosed());
-      connection.close();
-      System.out.println("Connection: " + connection.isClosed());
+      if (!connection.isClosed())
+        connection.close();
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
@@ -33,7 +32,20 @@ public class DataProvider {
       return statement.executeQuery();
     }
     catch (SQLException e) {
+      e.printStackTrace();
       return null;
+    }
+  }
+
+  public int executeNonQuery(String command) {
+    try {
+      connection = DriverManager.getConnection(url, user, password);
+      var statement = connection.prepareStatement(command);
+      return statement.executeUpdate();
+    }
+    catch (SQLException throwables) {
+      throwables.printStackTrace();
+      return 0;
     }
   }
 

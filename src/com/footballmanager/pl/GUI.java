@@ -76,6 +76,6 @@ public class GUI {
 
   private void addListener() {
     buttonShow.addActionListener(new ShowButtonActionListener(list));
-    buttonClick.addActionListener(new ClickButtonActionListener());
+    buttonClick.addActionListener(new ClickButtonActionListener(list));
   }
 }
