@@ -1,5 +1,8 @@
 package com.footballmanager.pl.events;
 
+import com.footballmanager.dal.DataProvider;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

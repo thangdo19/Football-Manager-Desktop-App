@@ -32,7 +32,7 @@ public class GUI {
   private JFrame createFrame(String title) {
     JFrame frame = new JFrame(title);
 
-    frame.setSize(600, 400);
+    frame.setSize(300, 200);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.setLocationRelativeTo(null); // set start position
 

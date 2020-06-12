@@ -6,19 +6,29 @@ public class DataProvider {
   private static DataProvider instance;
   private Connection connection;
 
+  private String url;
+  private String user;
+  private String password;
+
   private DataProvider() {
-    String url = "jdbc:sqlserver://localhost:1433;databaseName=FM";
-    String user = "thang";
-    String password = "thang207";
+    url = "jdbc:sqlserver://localhost:1433;databaseName=FM";
+    user = "thang";
+    password = "thang207";
+  }
+
+  public void closeConnection() {
     try {
-      connection = DriverManager.getConnection(url, user, password);
+      System.out.println("Connection: " + connection.isClosed());
+      connection.close();
+      System.out.println("Connection: " + connection.isClosed());
     } catch (SQLException throwables) {
-      System.out.println("Connection Error");
+      throwables.printStackTrace();
     }
   }
 
   public ResultSet getRecords(String query) {
     try {
+      connection = DriverManager.getConnection(url, user, password);
       var statement = connection.prepareStatement(query);
       return statement.executeQuery();
     }
