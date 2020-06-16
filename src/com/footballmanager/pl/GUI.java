@@ -12,6 +12,12 @@ import java.util.stream.Collectors;
 
 public class GUI {
   private PlayerGetter playerGetter;
+  private MainBorderLayoutPanel panel;
+  private JPanel centerPanel;
+  private JList list;
+  private JScrollPane scrollPane;
+  private JButton buttonShow;
+  private JButton buttonClick;
 
   public GUI(PlayerGetter playerGetter) {
     this.playerGetter = playerGetter;
@@ -28,29 +34,30 @@ public class GUI {
 
     frame.setSize(300, 200);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setLocationRelativeTo(null);
+    frame.setLocationRelativeTo(null); // set start position
 
     return frame;
   }
 
   private void createComponents(Container container) {
-    JPanel panel = new JPanel(new BorderLayout());
-    JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-    JList list;
-    JButton buttonShow = new JButton("Show");
-    JButton buttonClick = new JButton("Click");
+    panel = new MainBorderLayoutPanel();
+    centerPanel = new JPanel(new GridLayout(1, 1));
+    list = new JList();
+    buttonShow = new JButton("Show");
+    buttonClick = new JButton("Click");
 
-    list = new JList(playerGetter.getPlayers().toArray());
-    var scrollPane = new JScrollPane(list);
-    panel.add(scrollPane, BorderLayout.CENTER);
+    addListener();
+    scrollPane = new JScrollPane(list);
+    centerPanel.add(scrollPane);
 
-    buttonShow.addActionListener(new ShowButtonActionListener(list));
-    buttonClick.addActionListener(new ClickButtonActionListener());
-    panel.add(buttonShow, BorderLayout.SOUTH);
-//    panel.add(centerPanel, BorderLayout.CENTER);
-//    panel.add(table, BorderLayout.NORTH);
-//    panel.add(buttonClick, BorderLayout.NORTH);
-    container.add(panel);
+    panel.setSouth(new GridLayout(1, 2));
+    panel.getSouth().add(buttonShow);
+    panel.getSouth().add(buttonClick);
+
+    panel.setCenter(new GridLayout(1, 1));
+    panel.getCenter().add(centerPanel);
+    panel.addToPanel();
+    container.add(panel.getPanel());
   }
 
   private Object[][] takePlayersIn2DArray() {
@@ -65,5 +72,10 @@ public class GUI {
       array[i] = row;
     }
     return array;
+  }
+
+  private void addListener() {
+    buttonShow.addActionListener(new ShowButtonActionListener(list));
+    buttonClick.addActionListener(new ClickButtonActionListener(list));
   }
 }

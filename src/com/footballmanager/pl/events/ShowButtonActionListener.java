@@ -16,7 +16,7 @@ public class ShowButtonActionListener implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    var takingPlayers = CompletableFuture
+    CompletableFuture
       .runAsync(() -> list.setListData(new PlayerManager().getPlayers().toArray()))
       .thenRun(() -> JOptionPane.showMessageDialog(null, "Done"));
   }
